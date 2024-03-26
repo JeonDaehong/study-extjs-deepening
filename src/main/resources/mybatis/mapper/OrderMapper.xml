@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.market.mapper.OrderMapper">
+
+    <select id="getOrderCount" resultType="Long">
+        SELECT COUNT(1) FROM `ORDER`
+    </select>
+
+    <select id="getOrderList" resultType="com.example.market.dto.OrderDto">
+        SELECT * FROM `ORDER`
+        <where>
+            <if test="searchMemberNm != null and searchMemberNm != ''">
+                AND memberNm LIKE CONCAT('%', #{searchMemberNm}, '%')
+            </if>
+        </where>
+        LIMIT #{start}, #{limit};
+    </select>
+
+
+</mapper>
